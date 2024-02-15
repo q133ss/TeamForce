@@ -19,7 +19,7 @@ get_header();
                         <a href="/cases-own.html" class="breadcrumbs__link">Кейсы</a>
                     </li>
                     <li class="breadcrumbs__item last">
-                        <a class="breadcrumbs__link breadcrumbs__link-marked">Собственная разработка</a>
+                        <a class="breadcrumbs__link breadcrumbs__link-marked" href="<?php echo get_page_link(36); ?>">Собственная разработка</a>
                     </li>
                 </ul>
                 <button class="breadcrumbs__back">
@@ -136,7 +136,7 @@ get_header();
             </ul>
             <ul class="cases__row cases__row--mobile-reverse">
                 <li class="cases__item cases__item-mini cases__item-orange-mobile">
-                    <a href="/cases-order.html">
+                    <a href="<?php echo get_page_link(36); ?>">
                         <div class="cases__item-info">
                             <h4 class="cases__item-title">Заказная <br /> разработка</h4>
                             <p class="cases__item-link">
