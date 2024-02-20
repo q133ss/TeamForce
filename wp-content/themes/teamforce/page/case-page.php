@@ -19,7 +19,7 @@ get_header();
                         <a href="/cases-own.html" class="breadcrumbs__link">Кейсы</a>
                     </li>
                     <li class="breadcrumbs__item last">
-                        <a class="breadcrumbs__link breadcrumbs__link-marked" href="<?php echo get_page_link(36); ?>">Собственная разработка</a>
+                        <a class="breadcrumbs__link breadcrumbs__link-marked">Собственная разработка</a>
                     </li>
                 </ul>
                 <button class="breadcrumbs__back">
@@ -47,42 +47,94 @@ get_header();
                 Кейсы
             </h2>
             <ul class="cases__row">
+                <?php
+                $firstArgs = array(
+                    'post_type' => 'case', // Тип записи
+                    'posts_per_page' => 1,
+                    'orderby' => 'post_date',
+                    'order' => 'ASC',
+                    'meta_query' => array(
+                        array(
+                            'key' => 'category', // Имя поля ACF
+                            'value' => '1', // Значение поля ACF, которое вы ищете
+                            'compare' => '=', // Оператор сравнения
+                            'type' => 'NUMERIC', // Тип значения (NUMERIC, BINARY, CHAR, DATE, DATETIME, DECIMAL, SIGNED, TIME, UNSIGNED)
+                        ),
+                    ),
+                );
+    
+                $caseFirstQuery = new WP_Query($firstArgs);
+                if ($caseFirstQuery->have_posts()) {
+                    while ($caseFirstQuery->have_posts()) {
+                        $caseFirstQuery->the_post();
+                ?>
                 <li class="cases__item cases__item-big cases__item-tall">
-                    <a href="#">
+                    <a href="<?php echo get_the_permalink(); ?>">
                         <div class="cases__item-info">
-                            <h4 class="cases__item-title">DigRef</h4>
+                            <h4 class="cases__item-title"><?php echo get_the_title(); ?></h4>
                             <p class="cases__item-text">
-                                Поиск через рекомендации –
-                                эффективное решение для любого бизнеса
+                                <?php echo get_the_excerpt(); ?>
                             </p>
                             <p class="cases__item-link">
                                 Подробнее
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_470_15083)">
-    <path d="M9 5.01246C9 4.11226 10.0766 3.66144 10.7062 4.29798L13.8016 7.4273C15.9339 9.58289 17 10.6607 17 12C17 13.3393 15.9339 14.4171 13.8016 16.5727L10.7062 19.702C10.0766 20.3386 9 19.8877 9 18.9875C9 18.7196 9.1053 18.4625 9.29274 18.2731L12.3882 15.1437C13.4942 14.0255 14.1786 13.3276 14.6112 12.7544C15.0016 12.2371 15.0012 12.0565 15.001 12.0028L15.001 12L15.001 11.9973C15.0012 11.9435 15.0016 11.7629 14.6112 11.2456C14.1786 10.6724 13.4942 9.97446 12.3882 8.85627L9.29274 5.72695C9.1053 5.53745 9 5.28044 9 5.01246Z" fill="white"/>
-    <path d="M9 5.01246C9 4.11226 10.0766 3.66144 10.7062 4.29798L13.8016 7.4273C15.9339 9.58289 17 10.6607 17 12C17 13.3393 15.9339 14.4171 13.8016 16.5727L10.7062 19.702C10.0766 20.3386 9 19.8877 9 18.9875C9 18.7196 9.1053 18.4625 9.29274 18.2731L12.3882 15.1437C13.4942 14.0255 14.1786 13.3276 14.6112 12.7544C15.0016 12.2371 15.0012 12.0565 15.001 12.0028L15.001 12L15.001 11.9973C15.0012 11.9435 15.0016 11.7629 14.6112 11.2456C14.1786 10.6724 13.4942 9.97446 12.3882 8.85627L9.29274 5.72695C9.1053 5.53745 9 5.28044 9 5.01246Z" stroke="white"/>
-    </g>
-    <defs>
-    <clipPath id="clip0_470_15083">
-    <rect width="24" height="24" fill="white"/>
-    </clipPath>
-    </defs>
-</svg>                                   
+                                    <g clip-path="url(#clip0_470_15083)">
+                                    <path d="M9 5.01246C9 4.11226 10.0766 3.66144 10.7062 4.29798L13.8016 7.4273C15.9339 9.58289 17 10.6607 17 12C17 13.3393 15.9339 14.4171 13.8016 16.5727L10.7062 19.702C10.0766 20.3386 9 19.8877 9 18.9875C9 18.7196 9.1053 18.4625 9.29274 18.2731L12.3882 15.1437C13.4942 14.0255 14.1786 13.3276 14.6112 12.7544C15.0016 12.2371 15.0012 12.0565 15.001 12.0028L15.001 12L15.001 11.9973C15.0012 11.9435 15.0016 11.7629 14.6112 11.2456C14.1786 10.6724 13.4942 9.97446 12.3882 8.85627L9.29274 5.72695C9.1053 5.53745 9 5.28044 9 5.01246Z" fill="white"/>
+                                    <path d="M9 5.01246C9 4.11226 10.0766 3.66144 10.7062 4.29798L13.8016 7.4273C15.9339 9.58289 17 10.6607 17 12C17 13.3393 15.9339 14.4171 13.8016 16.5727L10.7062 19.702C10.0766 20.3386 9 19.8877 9 18.9875C9 18.7196 9.1053 18.4625 9.29274 18.2731L12.3882 15.1437C13.4942 14.0255 14.1786 13.3276 14.6112 12.7544C15.0016 12.2371 15.0012 12.0565 15.001 12.0028L15.001 12L15.001 11.9973C15.0012 11.9435 15.0016 11.7629 14.6112 11.2456C14.1786 10.6724 13.4942 9.97446 12.3882 8.85627L9.29274 5.72695C9.1053 5.53745 9 5.28044 9 5.01246Z" stroke="white"/>
+                                    </g>
+                                    <defs>
+                                    <clipPath id="clip0_470_15083">
+                                    <rect width="24" height="24" fill="white"/>
+                                    </clipPath>
+                                    </defs>
+                                </svg>                                   
                             </p>
                         </div>
                         <div class="cases__item-image cases__item-image-own-first">
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/dig-ref-project.png" alt="dig-ref-project" />
+                            <img src="<?php echo get_field('list_img'); ?>" alt="dig-ref-project" />
                         </div>
                     </a>
                 </li>
+                <?php
+                    }
+                    wp_reset_postdata();
+                }
+                ?>
             </ul>
             <ul class="cases__row">
+
+            <?php
+                $allArgs = array(
+                    'post_type' => 'case', // Тип записи
+                    'posts_per_page' => -1,
+                    'orderby' => 'post_date',
+                    'order' => 'ASC',
+                    'meta_query' => array(
+                        array(
+                            'key' => 'category', // Имя поля ACF
+                            'value' => '1', // Значение поля ACF, которое вы ищете
+                            'compare' => '=', // Оператор сравнения
+                            'type' => 'NUMERIC', // Тип значения (NUMERIC, BINARY, CHAR, DATE, DATETIME, DECIMAL, SIGNED, TIME, UNSIGNED)
+                        ),
+                    ),
+                );
+    
+                $caseAllQuery = new WP_Query($allArgs);
+                $count = 0;
+                if ($caseAllQuery->have_posts()) {
+                    $total_posts = $caseAllQuery->found_posts;
+                    while ($caseAllQuery->have_posts()) {
+                        $caseAllQuery->the_post();
+                        if ($caseAllQuery->current_post > 0 && $caseAllQuery->current_post < $total_posts - 1) {
+                            if($count % 2){
+            ?>
+
                 <li class="cases__item cases__item-medium cases__item-orange cases__item-tall">
-                    <a href="#">
+                    <a href="<?php echo get_the_permalink(); ?>">
                         <div class="cases__item-info">
-                            <h4 class="cases__item-title">SmartSAP</h4>
+                            <h4 class="cases__item-title"><?php echo get_the_title(); ?></h4>
                             <p class="cases__item-text">
-                                Быстрый и эффективный поиск специалистов для вашего проекта
+                                <?php echo get_the_excerpt(); ?>
                             </p>
                             <p class="cases__item-link">
                                 Подробнее
@@ -100,18 +152,18 @@ get_header();
                             </p>
                         </div>
                         <div class="cases__item-image _grayscale _luminosity">
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/smart-sap-project.png" alt="smart-sap-project" />
+                            <!-- /img/smart-sap-project.png -->
+                            <img src="<?php echo get_field('list_img'); ?>" alt="smart-sap-project" />
                         </div>
                     </a>
                 </li>
+                <?php }else{ ?>
                 <li class="cases__item cases__item-small cases__item-tall">
-                    <a href="#">
+                    <a href="<?php echo get_the_permalink(); ?>">
                         <div class="cases__item-info">
-                            <h4 class="cases__item-title">SkillsCloud</h4>
+                            <h4 class="cases__item-title"><?php echo get_the_title(); ?></h4>
                             <p class="cases__item-text">
-                                Разработка ПО, приложений, 
-                                сайтов, ведение проекта <br />
-                                на всех стадиях
+                                <?php echo get_the_excerpt(); ?>
                             </p>
                             <p class="cases__item-link">
                                 Подробнее
@@ -129,14 +181,23 @@ get_header();
                             </p>
                         </div>
                         <div class="cases__item-image _grayscale">
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/skills-cloud-project.png" alt="skills-cloud-project" />
+                            <!-- /img/skills-cloud-project.png -->
+                            <img src="<?php echo get_field('list_img'); ?>" alt="skills-cloud-project" />
                         </div>
                     </a>
                 </li>
+                <?php
+                            }
+                            $count++;
+                        }
+                    }
+                    wp_reset_postdata();
+                }
+                ?>
             </ul>
             <ul class="cases__row cases__row--mobile-reverse">
                 <li class="cases__item cases__item-mini cases__item-orange-mobile">
-                    <a href="<?php echo get_page_link(36); ?>">
+                    <a href="/cases-order.html">
                         <div class="cases__item-info">
                             <h4 class="cases__item-title">Заказная <br /> разработка</h4>
                             <p class="cases__item-link">
@@ -159,13 +220,34 @@ get_header();
                         </div> 
                     </a>
                 </li>
+
+                <?php
+                $lastArgs = array(
+                    'post_type' => 'case', // Тип записи
+                    'posts_per_page' => 1,
+                    'orderby' => 'post_date',
+                    'order' => 'DESC',
+                    'meta_query' => array(
+                        array(
+                            'key' => 'category', // Имя поля ACF
+                            'value' => '1', // Значение поля ACF, которое вы ищете
+                            'compare' => '=', // Оператор сравнения
+                            'type' => 'NUMERIC', // Тип значения (NUMERIC, BINARY, CHAR, DATE, DATETIME, DECIMAL, SIGNED, TIME, UNSIGNED)
+                        ),
+                    ),
+                );
+    
+                $caseLastQuery = new WP_Query($lastArgs);
+                if ($caseLastQuery->have_posts()) {
+                while ($caseLastQuery->have_posts()) {
+                    $caseLastQuery->the_post();
+                ?>
                 <li class="cases__item cases__item-medium cases__item-white">
-                    <a href="#">
+                    <a href="<?php echo get_the_permalink(); ?>">
                         <div class="cases__item-info">
-                            <h4 class="cases__item-title">1000 Джунов</h4>
+                            <h4 class="cases__item-title"><?php echo get_the_title(); ?></h4>
                             <p class="cases__item-text">
-                                Подготовка IT-специалистов для стажировок
-                                в компаниях-участниках проекта.
+                                <?php echo get_the_excerpt(); ?>
                             </p>
                             <p class="cases__item-link">
                                 Подробнее
@@ -183,10 +265,16 @@ get_header();
                             </p>
                         </div>
                         <div class="cases__item-image _grayscale">
+                        <!-- /img/thousand-juns-project.png -->
                             <img src="<?php echo get_template_directory_uri(); ?>/img/thousand-juns-project.png" alt="thousand-juns-project" />
                         </div>
                     </a>
                 </li>
+                <?php
+                    }
+                    wp_reset_postdata();
+                }
+                ?>
             </ul>
         </div>
     </div>
